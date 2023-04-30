@@ -131,7 +131,7 @@ class PPOContinualLearnerAgent(BaseContinualLearnerAgent):
         tasks = [tasks_[task_id] for task_id in config.task_ids]
         del tasks_
         self.config.cl_tasks_info = tasks
-        label_dim = None if not self.config.use_task_label else len(tasks[0]['task_label']) # Chris
+        label_dim = None if not self.config.use_task_label else len(tasks[0]['task_label']) 
 
         #label_dim = 0 if tasks[0]['task_label'] is None else len(tasks[0]['task_label'])
         self.task_label_dim = label_dim 
@@ -140,7 +140,7 @@ class PPOContinualLearnerAgent(BaseContinualLearnerAgent):
         # same across all shell agents
         #torch.manual_seed(config.seed)
         
-        random_seed(9157)   # Chris
+        random_seed(9157)
 
         self.network = config.network_fn(self.task.state_dim, self.task.action_dim, label_dim)
         _params = list(self.network.parameters())
@@ -150,7 +150,7 @@ class PPOContinualLearnerAgent(BaseContinualLearnerAgent):
         for name, para in self.network.named_parameters():
             print('{}: {}'.format(name, para.shape))
 
-        random_seed(config.seed)    # Chris
+        random_seed(config.seed)
 
 
         self.episode_rewards = np.zeros(config.num_workers)
