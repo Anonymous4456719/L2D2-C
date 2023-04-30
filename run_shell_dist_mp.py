@@ -138,11 +138,11 @@ def shell_dist_mctgraph_mp(name, args, shell_config):
     config.state_normalizer = ImageNormalizer()
 
     # set seed
-    config.seed = 9157#config_seed              # Chris
+    config.seed = 9157#config_seed             
     
     # set up logging system
     #exp_id = '{0}-seed-{1}'.format(args.exp_id, config.seed)
-    exp_id = '{0}-seed-{1}'.format(args.exp_id, config_seed)    # Chris
+    exp_id = '{0}-seed-{1}'.format(args.exp_id, config_seed)    
 
     path_name = '{0}-shell-dist-{1}/agent_{2}'.format(name, exp_id, args.agent_id)
     log_dir = get_default_log_dir(path_name)
@@ -173,10 +173,10 @@ def shell_dist_mctgraph_mp(name, args, shell_config):
         config.max_steps = [shell_config['curriculum']['max_steps'], ] * len(shell_config['curriculum']['task_ids'])
 
     #task_fn = lambda log_dir: MetaCTgraphFlatObs(name, env_config_path, log_dir)
-    task_fn = lambda log_dir: MetaCTgraphFlatObs(name, env_config_path, log_dir)          # Chris
+    task_fn = lambda log_dir: MetaCTgraphFlatObs(name, env_config_path, log_dir)         
     config.task_fn = lambda: ParallelizedTask(task_fn,config.num_workers,log_dir=config.log_dir, single_process=False)
     #eval_task_fn = lambda log_dir: MetaCTgraphFlatObs(name, env_config_path, log_dir)
-    eval_task_fn= lambda log_dir: MetaCTgraphFlatObs(name, env_config_path,log_dir)            # Chris
+    eval_task_fn= lambda log_dir: MetaCTgraphFlatObs(name, env_config_path,log_dir)            
     config.eval_task_fn = eval_task_fn
     config.network_fn = lambda state_dim, action_dim, label_dim: CategoricalActorCriticNet_SS(\
         state_dim, action_dim, label_dim,
@@ -186,14 +186,14 @@ def shell_dist_mctgraph_mp(name, args, shell_config):
         critic_body=DummyBody_CL(200),
         num_tasks=num_tasks)
 
-    config.seed = config_seed       # Chris
-    config.use_task_label = False   # Chris
+    config.seed = config_seed       
+    config.use_task_label = False  
 
     agent = ShellAgent_DP(config)
     config.agent_name = agent.__class__.__name__ + '_{0}'.format(args.agent_id)
 
     # Uncomment to print out the network parameters for visualisation. Can be useful for debugging.
-    #for k, v in agent.network.named_parameters():       # Chris
+    #for k, v in agent.network.named_parameters():       
     #    print(k, " : ", v)
 
     querying_frequency = (config.max_steps[0]/(config.rollout_length * config.num_workers)) / args.comm_interval
@@ -245,11 +245,11 @@ def shell_dist_mctgraph_eval(name, args, shell_config):
     config.state_normalizer = ImageNormalizer()
 
     # set seed
-    config.seed = 9157#config_seed              # Chris
+    config.seed = 9157#config_seed              
     
     # set up logging system
     #exp_id = '{0}-seed-{1}'.format(args.exp_id, config.seed)
-    exp_id = '{0}-seed-{1}'.format(args.exp_id, config_seed)    # Chris
+    exp_id = '{0}-seed-{1}'.format(args.exp_id, config_seed)    
     path_name = '{0}-shell-eval-{1}/agent_{2}'.format(name, exp_id, args.agent_id)
     log_dir = get_default_log_dir(path_name)
     logger = get_logger(log_dir=log_dir, file_name='train-log')
@@ -278,10 +278,10 @@ def shell_dist_mctgraph_eval(name, args, shell_config):
         config.max_steps = [shell_config['curriculum']['max_steps'], ] * len(shell_config['curriculum']['task_ids'])
 
     #task_fn = lambda log_dir: MetaCTgraphFlatObs(name, env_config_path, log_dir)
-    task_fn = lambda log_dir: MetaCTgraphFlatObs(name, env_config_path, log_dir)          # Chris
+    task_fn = lambda log_dir: MetaCTgraphFlatObs(name, env_config_path, log_dir)         
     config.task_fn = lambda: ParallelizedTask(task_fn,config.num_workers,log_dir=config.log_dir, single_process=False)
     #eval_task_fn = lambda log_dir: MetaCTgraphFlatObs(name, env_config_path, log_dir)
-    eval_task_fn= lambda log_dir: MetaCTgraphFlatObs(name, env_config_path,log_dir)            # Chris
+    eval_task_fn= lambda log_dir: MetaCTgraphFlatObs(name, env_config_path,log_dir)            
     config.eval_task_fn = eval_task_fn
     config.network_fn = lambda state_dim, action_dim, label_dim: CategoricalActorCriticNet_SS(\
         state_dim, action_dim, label_dim,
@@ -291,13 +291,13 @@ def shell_dist_mctgraph_eval(name, args, shell_config):
         critic_body=DummyBody_CL(200),
         num_tasks=num_tasks)
 
-    config.seed = config_seed       # Chris
-    config.use_task_label = False   # Chris
+    config.seed = config_seed       
+    config.use_task_label = False  
 
     agent = ShellAgent_DP(config)
     config.agent_name = agent.__class__.__name__ + '_{0}'.format(args.agent_id)
 
-    #for k, v in agent.network.named_parameters():       # Chris
+    #for k, v in agent.network.named_parameters():       
     #    print(k, " : ", v)
 
     addresses, ports = [], []
@@ -345,11 +345,11 @@ def shell_dist_minigrid_mp(name, args, shell_config):
     config.state_normalizer = RescaleNormalizer(1./10.)
 
     # set seed
-    config.seed = 9157#config_seed              # Chris
+    config.seed = 9157#config_seed             
     
     # set up logging system
     #exp_id = '{0}-seed-{1}'.format(args.exp_id, config.seed)
-    exp_id = '{0}-seed-{1}'.format(args.exp_id, config_seed)    # Chris
+    exp_id = '{0}-seed-{1}'.format(args.exp_id, config_seed)   
 
     path_name = '{0}-shell-dist-{1}/agent_{2}'.format(name, exp_id, args.agent_id)
     log_dir = get_default_log_dir(path_name)
@@ -380,10 +380,10 @@ def shell_dist_minigrid_mp(name, args, shell_config):
 
 
     #task_fn = lambda log_dir: MiniGridFlatObs(name, env_config_path, log_dir, config.seed, False)
-    task_fn = lambda log_dir: MiniGridFlatObs(name, env_config_path, log_dir, 9157, False)          # Chris
+    task_fn = lambda log_dir: MiniGridFlatObs(name, env_config_path, log_dir, 9157, False)          
     config.task_fn = lambda: ParallelizedTask(task_fn,config.num_workers,log_dir=config.log_dir, single_process=False)
     #eval_task_fn= lambda log_dir: MiniGridFlatObs(name, env_config_path,log_dir,config.seed,True)
-    eval_task_fn= lambda log_dir: MiniGridFlatObs(name, env_config_path,log_dir, 9157, True)            # Chris
+    eval_task_fn= lambda log_dir: MiniGridFlatObs(name, env_config_path,log_dir, 9157, True)            
     config.eval_task_fn = eval_task_fn
     config.network_fn = lambda state_dim, action_dim, label_dim: CategoricalActorCriticNet_SS(\
         state_dim, action_dim, label_dim,
@@ -394,13 +394,13 @@ def shell_dist_minigrid_mp(name, args, shell_config):
         num_tasks=num_tasks)
 
 
-    config.seed = config_seed       # Chris
+    config.seed = config_seed       
 
     agent = ShellAgent_DP(config)
     config.agent_name = agent.__class__.__name__ + '_{0}'.format(args.agent_id)
 
     # Uncomment to print out the network parameters for visualisation. Can be useful for debugging.
-    #for k, v in agent.network.named_parameters():       # Chris
+    #for k, v in agent.network.named_parameters():       
     #    print(k, " : ", v)
 
     querying_frequency = (config.max_steps[0]/(config.rollout_length * config.num_workers)) / args.comm_interval
@@ -501,12 +501,12 @@ def shell_dist_minigrid_eval(name, args, shell_config):
         num_tasks=num_tasks)
 
 
-    config.seed = config_seed       # Chris
+    config.seed = config_seed      
 
     agent = ShellAgent_DP(config)
     config.agent_name = agent.__class__.__name__ + '_{0}'.format(args.agent_id)
     
-    #for k, v in agent.network.named_parameters():       # Chris
+    #for k, v in agent.network.named_parameters():       
     #    print(k, " : ", v)
 
     addresses, ports = [], []
@@ -537,7 +537,7 @@ def shell_dist_minigrid_eval(name, args, shell_config):
 
 
 ##### ContinualWorld environment
-# Need to add changes from Chris for seeds. Currently broken.
+
 def shell_dist_continualworld_mp(name, args, shell_config):
     shell_config_path = args.shell_config_path
     num_agents = args.num_agents
@@ -772,7 +772,7 @@ if __name__ == '__main__':
         if args.shuffle and not args.eval: random.shuffle(shell_config['curriculum']['task_ids'])
 
         # Handle seeds
-        shell_config['seed'] = shell_config['seed'][args.agent_id]      # Chris
+        shell_config['seed'] = shell_config['seed'][args.agent_id]      
         del shell_config['agents'][args.agent_id]
 
 
